@@ -1,0 +1,9 @@
+/* Mengatur font Poppins sebagai font bawaan */
+body {
+    font-family: 'Poppins', sans-serif;
+}
+
+/* Custom adjustment jika diperlukan */
+#wallpaper {
+    will-change: opacity, transform;
+}
