@@ -1,0 +1,1238 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+```
+<meta charset="UTF-8">
+<!-- Supaya ukuran mengikuti layar HP -->
+<meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Digital Hub</title>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<!-- Font Poppins -->
+<link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap"
+    rel="stylesheet">
+<!-- CSS Custom -->
+<link rel="stylesheet" href="css/01.CSS">
+<style>
+    /* =====================================
+       RESET DASAR
+    ===================================== */
+    * {
+        box-sizing: border-box;
+    }
+    html,
+    body {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        padding: 0;
+    }
+    /* =====================================
+       HALAMAN UTAMA
+    ===================================== */
+    body {
+        font-family:
+            "Poppins",
+            sans-serif;
+        width: 100vw;
+        /*
+        Mengikuti tinggi layar HP.
+        100dvh lebih akurat saat dibuka
+        menggunakan Chrome Android.
+        */
+        min-height: 100vh;
+        min-height: 100dvh;
+        color: white;
+        overflow-x: hidden;
+        overflow-y: auto;
+        -webkit-text-size-adjust: 100%;
+    }
+    /* =====================================
+       WALLPAPER
+    ===================================== */
+    #wallpaper {
+        position: fixed;
+        inset: 0;
+        width: 100vw;
+        height: 100vh;
+        height: 100dvh;
+        background-size: cover;
+
+        background-position: center;
+
+        background-repeat: no-repeat;
+
+        z-index: 0;
+
+        transform: scale(1.03);
+
+        transition:
+            background-image
+            1s
+            ease-in-out;
+
+    }
+
+
+    /* =====================================
+       KONTEN UTAMA
+    ===================================== */
+
+    .digital-content {
+
+        position: relative;
+
+        z-index: 10;
+
+        width: 100%;
+
+        /*
+        Lebar maksimal untuk HP.
+        Jika layar lebih lebar,
+        konten tetap terlihat rapi.
+        */
+
+        max-width: 430px;
+
+        min-height: 100vh;
+
+        min-height: 100dvh;
+
+        margin:
+            0
+            auto;
+
+        /*
+        Padding dibuat lebih kecil
+        agar cocok untuk layar 7,5 x 16 cm.
+        */
+
+        padding-top:
+
+            max(
+                18px,
+                env(safe-area-inset-top)
+            );
+
+        padding-right: 14px;
+
+        padding-bottom:
+
+            max(
+                18px,
+                env(safe-area-inset-bottom)
+            );
+
+        padding-left: 14px;
+
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+    }
+
+
+    /* =====================================
+       PEMBUNGKUS MENU
+    ===================================== */
+
+    .menu-wrapper {
+
+        width: 100%;
+
+    }
+
+
+    /* =====================================
+       HEADER
+    ===================================== */
+
+    .digital-header {
+
+        margin-top: 0;
+
+        margin-bottom: 24px;
+
+    }
+
+
+    .header-title {
+
+        font-size: 30px;
+
+        line-height: 1.1;
+
+    }
+
+
+    /* =====================================
+       MENU UTAMA
+    ===================================== */
+
+    main {
+
+        gap: 12px !important;
+
+    }
+
+
+    /*
+    Tinggi menu dibuat lebih pendek
+    supaya semua menu pas di layar HP.
+    */
+
+    .menu-card {
+
+        min-height: 72px;
+
+        padding: 13px !important;
+
+        gap: 13px !important;
+
+    }
+
+
+    /*
+    Ukuran kotak ikon.
+    */
+
+    .menu-card > div:first-child {
+
+        padding: 10px !important;
+
+        flex-shrink: 0;
+
+    }
+
+
+    /*
+    Ukuran ikon.
+    */
+
+    .menu-card svg {
+
+        width: 25px !important;
+
+        height: 25px !important;
+
+    }
+
+
+    /*
+    Judul menu.
+    */
+
+    .menu-card h2 {
+
+        font-size: 15px !important;
+
+        line-height: 1.25;
+
+    }
+
+
+    /*
+    Deskripsi menu.
+    */
+
+    .menu-card p {
+
+        font-size: 11px !important;
+
+        line-height: 1.4;
+
+    }
+
+
+    /* =====================================
+       FOOTER
+    ===================================== */
+
+    .digital-footer {
+
+        margin-top: 20px;
+
+    }
+
+
+    .digital-footer p {
+
+        font-size: 9px !important;
+
+    }
+
+
+    /* =====================================
+       TOMBOL WALLPAPER
+    ===================================== */
+
+    #btnWallpaper {
+
+        /*
+        Posisi aman dari bagian atas HP.
+        */
+
+        top:
+
+            max(
+                12px,
+                env(safe-area-inset-top)
+            ) !important;
+
+        right: 12px !important;
+
+        padding:
+
+            8px
+            11px !important;
+
+        font-size: 10px !important;
+
+    }
+
+
+    #btnWallpaper svg {
+
+        width: 14px !important;
+
+        height: 14px !important;
+
+    }
+
+
+    /* =====================================
+       HP DENGAN LEBAR KECIL
+    ===================================== */
+
+    @media
+    (max-width: 380px) {
+
+        .digital-content {
+
+            padding-left: 10px;
+
+            padding-right: 10px;
+
+        }
+
+
+        .header-title {
+
+            font-size: 27px;
+
+        }
+
+
+        .digital-header {
+
+            margin-bottom: 19px;
+
+        }
+
+
+        main {
+
+            gap: 10px !important;
+
+        }
+
+
+        .menu-card {
+
+            min-height: 67px;
+
+            padding: 11px !important;
+
+            gap: 11px !important;
+
+        }
+
+
+        .menu-card > div:first-child {
+
+            padding: 9px !important;
+
+        }
+
+
+        .menu-card svg {
+
+            width: 23px !important;
+
+            height: 23px !important;
+
+        }
+
+
+        .menu-card h2 {
+
+            font-size: 14px !important;
+
+        }
+
+
+        .menu-card p {
+
+            font-size: 10px !important;
+
+        }
+
+
+        .digital-footer {
+
+            margin-top: 16px;
+
+        }
+
+
+    }
+
+
+    /* =====================================
+       HP DENGAN LAYAR PENDEK
+    ===================================== */
+
+    @media
+    (max-height: 700px) {
+
+        .digital-content {
+
+            justify-content: flex-start;
+
+            padding-top: 70px;
+
+        }
+
+
+        .digital-header {
+
+            margin-bottom: 18px;
+
+        }
+
+
+        .header-title {
+
+            font-size: 26px;
+
+        }
+
+
+        main {
+
+            gap: 9px !important;
+
+        }
+
+
+        .menu-card {
+
+            min-height: 62px;
+
+            padding: 10px !important;
+
+        }
+
+
+        .digital-footer {
+
+            margin-top: 14px;
+
+        }
+
+    }
+
+
+    /* =====================================
+       TABLET DAN DESKTOP
+    ===================================== */
+
+    @media
+    (min-width: 600px) {
+
+        body {
+
+            display: flex;
+
+            justify-content: center;
+
+            align-items: center;
+
+            background: #020617;
+
+        }
+
+
+        .digital-content {
+
+            width: 100%;
+
+            max-width: 430px;
+
+            min-height: 720px;
+
+            max-height: 90vh;
+
+            border-radius: 28px;
+
+            overflow: hidden;
+
+        }
+
+
+        #wallpaper {
+
+            transform: scale(1.05);
+
+        }
+
+    }
+
+</style>
+```
+
+</head>
+
+<body class="bg-gray-950 text-white relative">
+
+```
+<!-- =====================================
+     WALLPAPER
+====================================== -->
+
+<div id="wallpaper"></div>
+
+
+<!-- =====================================
+     OVERLAY GELAP
+====================================== -->
+
+<div
+    class="
+    fixed
+    inset-0
+    bg-black/60
+    backdrop-blur-[2px]
+    z-[1]
+    ">
+</div>
+
+
+<!-- =====================================
+     TOMBOL GANTI WALLPAPER
+====================================== -->
+
+<button
+    id="btnWallpaper"
+
+    class="
+    fixed
+
+    z-20
+
+    flex
+    items-center
+    gap-2
+
+    bg-black/50
+
+    border
+    border-white/20
+
+    rounded-full
+
+    text-gray-200
+
+    backdrop-blur-md
+
+    active:scale-95
+
+    transition-all
+
+    hover:bg-black/80
+
+    hover:border-white/40
+    ">
+
+
+    <svg
+
+        fill="none"
+
+        stroke="currentColor"
+
+        viewBox="0 0 24 24">
+
+
+        <path
+
+            stroke-linecap="round"
+
+            stroke-linejoin="round"
+
+            stroke-width="2"
+
+            d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15">
+
+        </path>
+
+
+    </svg>
+
+
+    <span>
+
+        Ganti Wallpaper
+
+    </span>
+
+
+</button>
+
+
+<!-- =====================================
+     KONTEN UTAMA
+====================================== -->
+
+<div class="digital-content">
+
+
+    <div class="menu-wrapper">
+
+
+        <!-- =====================================
+             HEADER
+        ====================================== -->
+
+        <header
+            class="
+            digital-header
+
+            w-full
+
+            text-center
+            ">
+
+
+            <h1
+                class="
+                header-title
+
+                font-extrabold
+
+                tracking-tight
+
+                text-white
+                ">
+
+                DIGITAL HUB
+
+            </h1>
+
+
+            <p
+                class="
+                text-xs
+
+                tracking-widest
+
+                text-cyan-400
+
+                font-semibold
+
+                uppercase
+
+                mt-1
+                ">
+
+                Dynamic Edition
+
+            </p>
+
+
+            <div
+                class="
+                w-14
+
+                h-1
+
+                bg-gradient-to-r
+
+                from-cyan-400
+
+                to-blue-600
+
+                mx-auto
+
+                mt-3
+
+                rounded-full
+                ">
+
+            </div>
+
+
+        </header>
+
+
+        <!-- =====================================
+             MENU
+        ====================================== -->
+
+        <main
+            class="
+            w-full
+
+            flex
+
+            flex-col
+            ">
+
+
+            <!-- 1. PELAPORAN DANA MASUK -->
+
+            <a
+
+                href="https://docs.google.com/forms/d/e/1FAIpQLSfYdQ6kz77maaZPf0hqPaxU-KMQMTPxqQHdHdVxM47lPDksJw/viewform"
+
+                target="_blank"
+
+                rel="noopener noreferrer"
+
+                class="
+                menu-card
+
+                group
+
+                w-full
+
+                flex
+
+                items-center
+
+                bg-black/40
+
+                backdrop-blur-md
+
+                border
+
+                border-white/10
+
+                rounded-2xl
+
+                shadow-xl
+
+                transition-all
+
+                duration-300
+
+                hover:border-emerald-500
+
+                hover:bg-black/60
+
+                active:scale-[0.97]
+                ">
+
+
+                <div
+
+                    class="
+                    bg-emerald-500/20
+
+                    rounded-xl
+
+                    border
+
+                    border-emerald-500/30
+
+                    group-hover:border-emerald-500
+                    ">
+
+
+                    <svg
+
+                        class="text-emerald-400"
+
+                        fill="none"
+
+                        stroke="currentColor"
+
+                        viewBox="0 0 24 24">
+
+
+                        <path
+
+                            stroke-linecap="round"
+
+                            stroke-linejoin="round"
+
+                            stroke-width="2"
+
+                            d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z">
+
+                        </path>
+
+
+                    </svg>
+
+
+                </div>
+
+
+                <div class="min-w-0">
+
+
+                    <h2
+                        class="
+                        font-bold
+
+                        text-white
+
+                        group-hover:text-emerald-200
+                        ">
+
+                        Pelaporan Dana Masuk
+
+                    </h2>
+
+
+                    <p
+                        class="
+                        text-gray-400
+                        ">
+
+                        Catat transaksi dana masuk
+
+                    </p>
+
+
+                </div>
+
+
+            </a>
+
+
+            <!-- 2. MEMO -->
+
+            <a
+
+                href="https://docs.google.com/document/d/1RrqVwj1MVcTWUGgAHx_HaGd2DioGZIcxyEwtMQoyXeg/edit?tab=t.0"
+
+                target="_blank"
+
+                rel="noopener noreferrer"
+
+                class="
+                menu-card
+
+                group
+
+                w-full
+
+                flex
+
+                items-center
+
+                bg-black/40
+
+                backdrop-blur-md
+
+                border
+
+                border-white/10
+
+                rounded-2xl
+
+                shadow-xl
+
+                transition-all
+
+                duration-300
+
+                hover:border-yellow-500
+
+                hover:bg-black/60
+
+                active:scale-[0.97]
+                ">
+
+
+                <div
+
+                    class="
+                    bg-yellow-500/20
+
+                    rounded-xl
+
+                    border
+
+                    border-yellow-500/30
+
+                    group-hover:border-yellow-500
+                    ">
+
+
+                    <svg
+
+                        class="text-yellow-400"
+
+                        fill="none"
+
+                        stroke="currentColor"
+
+                        viewBox="0 0 24 24">
+
+
+                        <path
+
+                            stroke-linecap="round"
+
+                            stroke-linejoin="round"
+
+                            stroke-width="2"
+
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 00-2 2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z">
+
+                        </path>
+
+
+                    </svg>
+
+
+                </div>
+
+
+                <div class="min-w-0">
+
+
+                    <h2
+                        class="
+                        font-bold
+
+                        text-white
+
+                        group-hover:text-yellow-200
+                        ">
+
+                        Memo
+
+                    </h2>
+
+
+                    <p
+                        class="
+                        text-gray-400
+                        ">
+
+                        Catatan penting
+
+                    </p>
+
+
+                </div>
+
+
+            </a>
+
+
+            <!-- 3. UPDATE MUTASI REKENING -->
+
+            <a
+
+                href="https://docs.google.com/spreadsheets/d/1c10-phWJKyoPPofz8-w40WkQTp0umkITtVwAhRfYssc/edit?gid=1668992678#gid=1668992678"
+
+                target="_blank"
+
+                rel="noopener noreferrer"
+
+                class="
+                menu-card
+
+                group
+
+                w-full
+
+                flex
+
+                items-center
+
+                bg-black/40
+
+                backdrop-blur-md
+
+                border
+
+                border-white/10
+
+                rounded-2xl
+
+                shadow-xl
+
+                transition-all
+
+                duration-300
+
+                hover:border-blue-500
+
+                hover:bg-black/60
+
+                active:scale-[0.97]
+                ">
+
+
+                <div
+
+                    class="
+                    bg-blue-500/20
+
+                    rounded-xl
+
+                    border
+
+                    border-blue-500/30
+
+                    group-hover:border-blue-500
+                    ">
+
+
+                    <svg
+
+                        class="text-blue-400"
+
+                        fill="none"
+
+                        stroke="currentColor"
+
+                        viewBox="0 0 24 24">
+
+
+                        <path
+
+                            stroke-linecap="round"
+
+                            stroke-linejoin="round"
+
+                            stroke-width="2"
+
+                            d="M3 10h18M7 15h1m4 0h1m-7 4h12a3 3 0 003-3V8a3 3 0 00-3-3H6a3 3 0 00-3 3v8a3 3 0 003 3z">
+
+                        </path>
+
+
+                    </svg>
+
+
+                </div>
+
+
+                <div class="min-w-0">
+
+
+                    <h2
+                        class="
+                        font-bold
+
+                        text-white
+
+                        group-hover:text-blue-200
+                        ">
+
+                        Update Mutasi Rekening
+
+                    </h2>
+
+
+                    <p
+                        class="
+                        text-gray-400
+                        ">
+
+                        Cek saldo &amp; mutasi terbaru
+
+                    </p>
+
+
+                </div>
+
+
+            </a>
+
+
+            <!-- 4. MUSIK -->
+
+            <a
+
+                href="musik2\index.html"
+
+                target="_blank"
+
+                rel="noopener noreferrer"
+
+                class="
+                menu-card
+
+                group
+
+                w-full
+
+                flex
+
+                items-center
+
+                bg-black/40
+
+                backdrop-blur-md
+
+                border
+
+                border-white/10
+
+                rounded-2xl
+
+                shadow-xl
+
+                transition-all
+
+                duration-300
+
+                hover:border-pink-500
+
+                hover:bg-black/60
+
+                active:scale-[0.97]
+                ">
+
+
+                <div
+
+                    class="
+                    bg-pink-500/20
+
+                    rounded-xl
+
+                    border
+
+                    border-pink-500/30
+
+                    group-hover:border-pink-500
+                    ">
+
+
+                    <svg
+
+                        class="text-pink-400"
+
+                        fill="none"
+
+                        stroke="currentColor"
+
+                        viewBox="0 0 24 24">
+
+
+                        <path
+
+                            stroke-linecap="round"
+
+                            stroke-linejoin="round"
+
+                            stroke-width="2"
+
+                            d="M9 19V6l12-3v13M9 19c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zm12-3c0 1.105-1.343 2-3 2s-3-.895-3-2 1.343-2 3-2 3 .895 3 2zM9 10l12-3">
+
+                        </path>
+
+
+                    </svg>
+
+
+                </div>
+
+
+                <div class="min-w-0">
+
+
+                    <h2
+                        class="
+                        font-bold
+
+                        text-white
+
+                        group-hover:text-pink-200
+                        ">
+
+                        Musik
+
+                    </h2>
+
+
+                    <p
+                        class="
+                        text-gray-400
+                        ">
+
+                        Play &amp; dengerin musik bro!
+
+                    </p>
+
+
+                </div>
+
+
+            </a>
+
+
+        </main>
+
+
+        <!-- =====================================
+             FOOTER
+        ====================================== -->
+
+        <footer
+            class="
+            digital-footer
+
+            w-full
+
+            text-center
+            ">
+
+
+            <p
+                class="
+                text-gray-500
+
+                tracking-widest
+
+                uppercase
+                ">
+
+                Auto-Switch Wallpaper Every 7s
+
+            </p>
+
+
+        </footer>
+
+
+    </div>
+
+
+</div>
+
+
+<!-- =====================================
+     JAVASCRIPT
+====================================== -->
+
+<script src="js/01.js"></script>
+```
+
+</body>
+</html>
