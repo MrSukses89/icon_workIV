@@ -1,0 +1,2419 @@
+```html
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+
+<title>Music Player</title>
+
+
+<!-- ICON -->
+
+<script
+src="https://unpkg.com/@phosphor-icons/web">
+</script>
+
+
+<style>
+
+
+/* =====================================
+   1. RESET
+===================================== */
+
+* {
+
+  box-sizing: border-box;
+
+  margin: 0;
+
+  padding: 0;
+
+  font-family:
+
+    Arial,
+    sans-serif;
+
+}
+
+
+html,
+body {
+
+  width: 100%;
+
+  height: 100%;
+
+  overflow: hidden;
+
+  background:
+
+    #0f172a;
+
+}
+
+
+/* =====================================
+   2. MUSIC PLAYER
+===================================== */
+
+.music-player {
+
+  width: 100%;
+
+  height: 100vh;
+
+  height: 100dvh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  background:
+
+    #1e293b;
+
+  color:
+
+    white;
+
+  overflow: hidden;
+
+}
+
+
+/* =====================================
+   3. BAGIAN ATAS PLAYER
+===================================== */
+
+.player-top {
+
+  flex-shrink: 0;
+
+  padding:
+
+    max(
+      14px,
+      env(safe-area-inset-top)
+    )
+
+    16px
+
+    10px;
+
+  background:
+
+    #1e293b;
+
+  z-index:
+
+    10;
+
+}
+
+
+/* =====================================
+   4. HEADER
+===================================== */
+
+.header {
+
+  display: flex;
+
+  justify-content:
+
+    space-between;
+
+  align-items:
+
+    center;
+
+  margin-bottom:
+
+    8px;
+
+}
+
+
+.header h2 {
+
+  font-size:
+
+    12px;
+
+  color:
+
+    #94a3b8;
+
+  letter-spacing:
+
+    2px;
+
+}
+
+
+.icon-button {
+
+  border:
+
+    none;
+
+  background:
+
+    transparent;
+
+  color:
+
+    #94a3b8;
+
+  font-size:
+
+    24px;
+
+}
+
+
+/* =====================================
+   5. COVER
+===================================== */
+
+.cover-container {
+
+  width:
+
+    150px;
+
+  height:
+
+    150px;
+
+  margin:
+
+    0
+    auto
+    8px;
+
+  position:
+
+    relative;
+
+  display:
+
+    flex;
+
+  justify-content:
+
+    center;
+
+  align-items:
+
+    center;
+
+}
+
+
+/* COVER BERBENTUK PIRINGAN */
+
+.cover {
+
+  width:
+
+    135px;
+
+  height:
+
+    135px;
+
+  border-radius:
+
+    50%;
+
+  object-fit:
+
+    cover;
+
+  border:
+
+    5px
+    solid
+    #334155;
+
+  box-shadow:
+
+    0
+    0
+    25px
+
+    rgba(
+      56,
+      189,
+      248,
+      0.25
+    );
+
+  animation:
+
+    putarCover
+
+    8s
+
+    linear
+
+    infinite;
+
+  animation-play-state:
+
+    paused;
+
+}
+
+
+/* COVER BERPUTAR SAAT PLAY */
+
+.music-player.playing
+.cover {
+
+  animation-play-state:
+
+    running;
+
+}
+
+
+/* ANIMASI */
+
+@keyframes putarCover {
+
+  from {
+
+    transform:
+
+      rotate(
+        0deg
+      );
+
+  }
+
+
+  to {
+
+    transform:
+
+      rotate(
+        360deg
+      );
+
+  }
+
+}
+
+
+/* IKON MUSIK */
+
+.music-icon {
+
+  position:
+
+    absolute;
+
+  width:
+
+    44px;
+
+  height:
+
+    44px;
+
+  border-radius:
+
+    50%;
+
+  background:
+
+    #0f172a;
+
+  border:
+
+    3px
+    solid
+    #38bdf8;
+
+  display:
+
+    flex;
+
+  justify-content:
+
+    center;
+
+  align-items:
+
+    center;
+
+  color:
+
+    #38bdf8;
+
+  font-size:
+
+    23px;
+
+  pointer-events:
+
+    none;
+
+}
+
+
+/* =====================================
+   6. INFO LAGU
+===================================== */
+
+.song-info {
+
+  text-align:
+
+    center;
+
+}
+
+
+.song-title {
+
+  font-size:
+
+    18px;
+
+  font-weight:
+
+    bold;
+
+  white-space:
+
+    nowrap;
+
+  overflow:
+
+    hidden;
+
+  text-overflow:
+
+    ellipsis;
+
+}
+
+
+.artist {
+
+  margin-top:
+
+    3px;
+
+  font-size:
+
+    13px;
+
+  color:
+
+    #94a3b8;
+
+}
+
+
+/* =====================================
+   7. PROGRESS
+===================================== */
+
+.progress {
+
+  width:
+
+    100%;
+
+  height:
+
+    6px;
+
+  margin-top:
+
+    12px;
+
+  background:
+
+    #334155;
+
+  border-radius:
+
+    10px;
+
+  overflow:
+
+    hidden;
+
+  cursor:
+
+    pointer;
+
+}
+
+
+.progress-fill {
+
+  width:
+
+    0%;
+
+  height:
+
+    100%;
+
+  background:
+
+    #38bdf8;
+
+}
+
+
+.time {
+
+  display:
+
+    flex;
+
+  justify-content:
+
+    space-between;
+
+  margin-top:
+
+    5px;
+
+  font-size:
+
+    11px;
+
+  color:
+
+    #94a3b8;
+
+}
+
+
+/* =====================================
+   8. TOMBOL KONTROL
+===================================== */
+
+.controls {
+
+  display:
+
+    flex;
+
+  justify-content:
+
+    center;
+
+  align-items:
+
+    center;
+
+  gap:
+
+    20px;
+
+  margin-top:
+
+    6px;
+
+}
+
+
+.control-button {
+
+  border:
+
+    none;
+
+  background:
+
+    transparent;
+
+  color:
+
+    white;
+
+  font-size:
+
+    26px;
+
+  cursor:
+
+    pointer;
+
+}
+
+
+.play-button {
+
+  width:
+
+    58px;
+
+  height:
+
+    58px;
+
+  border:
+
+    none;
+
+  border-radius:
+
+    50%;
+
+  background:
+
+    #38bdf8;
+
+  color:
+
+    #0f172a;
+
+  font-size:
+
+    28px;
+
+  cursor:
+
+    pointer;
+
+}
+
+
+/* =====================================
+   9. PREVIOUS DAN NEXT
+===================================== */
+
+.text-controls {
+
+  display:
+
+    flex;
+
+  gap:
+
+    10px;
+
+  margin-top:
+
+    8px;
+
+}
+
+
+.text-controls button {
+
+  flex:
+
+    1;
+
+  padding:
+
+    9px;
+
+  border:
+
+    1px
+    solid
+    #475569;
+
+  border-radius:
+
+    10px;
+
+  background:
+
+    #334155;
+
+  color:
+
+    white;
+
+  cursor:
+
+    pointer;
+
+}
+
+
+/* =====================================
+   10. VOLUME
+===================================== */
+
+.volume {
+
+  display:
+
+    flex;
+
+  align-items:
+
+    center;
+
+  gap:
+
+    10px;
+
+  margin-top:
+
+    8px;
+
+  padding:
+
+    8px
+    14px;
+
+  border-radius:
+
+    20px;
+
+  background:
+
+    #0f172a;
+
+}
+
+
+.volume input {
+
+  width:
+
+    100%;
+
+}
+
+
+/* =====================================
+   11. PLAYLIST
+===================================== */
+
+.playlist-area {
+
+  flex:
+
+    1;
+
+  min-height:
+
+    0;
+
+  display:
+
+    flex;
+
+  flex-direction:
+
+    column;
+
+  border-top:
+
+    1px
+    solid
+    #334155;
+
+  padding:
+
+    10px
+    16px;
+
+  overflow:
+
+    hidden;
+
+}
+
+
+.playlist-title {
+
+  flex-shrink:
+
+    0;
+
+  margin-bottom:
+
+    7px;
+
+  font-size:
+
+    12px;
+
+  color:
+
+    #94a3b8;
+
+  letter-spacing:
+
+    1px;
+
+}
+
+
+/* =====================================
+   12. LIST LAGU DI-SCROLL
+===================================== */
+
+.song-list {
+
+  flex:
+
+    1;
+
+  min-height:
+
+    0;
+
+  overflow-y:
+
+    auto;
+
+  overflow-x:
+
+    hidden;
+
+  padding-right:
+
+    5px;
+
+  -webkit-overflow-scrolling:
+
+    touch;
+
+}
+
+
+.song-list::-webkit-scrollbar {
+
+  width:
+
+    5px;
+
+}
+
+
+.song-list::-webkit-scrollbar-thumb {
+
+  background:
+
+    #475569;
+
+  border-radius:
+
+    10px;
+
+}
+
+
+/* ITEM LAGU */
+
+.song-item {
+
+  display:
+
+    flex;
+
+  justify-content:
+
+    space-between;
+
+  align-items:
+
+    center;
+
+  padding:
+
+    11px;
+
+  margin-bottom:
+
+    5px;
+
+  border-radius:
+
+    10px;
+
+  background:
+
+    #263449;
+
+  cursor:
+
+    pointer;
+
+}
+
+
+.song-item.active {
+
+  background:
+
+    #334155;
+
+  border-left:
+
+    4px
+    solid
+    #38bdf8;
+
+}
+
+
+.song-item-title {
+
+  font-size:
+
+    14px;
+
+  font-weight:
+
+    bold;
+
+}
+
+
+.song-item-artist {
+
+  margin-top:
+
+    3px;
+
+  font-size:
+
+    12px;
+
+  color:
+
+    #94a3b8;
+
+}
+
+
+/* =====================================
+   13. HP LAYAR PENDEK
+===================================== */
+
+@media
+(max-height: 700px) {
+
+  .cover-container {
+
+    width:
+
+      110px;
+
+    height:
+
+      110px;
+
+  }
+
+
+  .cover {
+
+    width:
+
+      100px;
+
+    height:
+
+      100px;
+
+  }
+
+
+  .player-top {
+
+    padding-top:
+
+      8px;
+
+    padding-bottom:
+
+      6px;
+
+  }
+
+
+  .progress {
+
+    margin-top:
+
+      7px;
+
+  }
+
+
+  .controls {
+
+    margin-top:
+
+      4px;
+
+  }
+
+
+  .play-button {
+
+    width:
+
+      50px;
+
+    height:
+
+      50px;
+
+  }
+
+}
+
+
+/* =====================================
+   14. DESKTOP
+===================================== */
+
+@media
+(min-width: 600px) {
+
+  body {
+
+    display:
+
+      flex;
+
+    justify-content:
+
+      center;
+
+    align-items:
+
+      center;
+
+    padding:
+
+      20px;
+
+  }
+
+
+  .music-player {
+
+    width:
+
+      430px;
+
+    max-height:
+
+      850px;
+
+    border-radius:
+
+      28px;
+
+    box-shadow:
+
+      0
+      20px
+      50px
+
+      rgba(
+        0,
+        0,
+        0,
+        0.5
+      );
+
+  }
+
+}
+
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<div
+class="music-player">
+
+
+<!-- PLAYER BAGIAN ATAS -->
+
+<div
+class="player-top">
+
+
+<div
+class="header">
+
+
+<button
+class="icon-button">
+
+<i
+class="ph ph-caret-down">
+
+</i>
+
+</button>
+
+
+<h2>
+
+NOW PLAYING
+
+</h2>
+
+
+<button
+class="icon-button">
+
+<i
+class="ph ph-dots-three">
+
+</i>
+
+</button>
+
+
+</div>
+
+
+<!-- COVER -->
+
+<div
+class="cover-container">
+
+
+<img
+
+id="cover"
+
+class="cover"
+
+src="https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80">
+
+
+<div
+class="music-icon">
+
+
+<i
+class="ph ph-music-note">
+
+</i>
+
+
+</div>
+
+
+</div>
+
+
+<!-- INFO -->
+
+<div
+class="song-info">
+
+
+<div
+id="title"
+
+class="song-title">
+
+Memuat Lagu...
+
+</div>
+
+
+<div
+id="artist"
+
+class="artist">
+
+-
+
+</div>
+
+
+</div>
+
+
+<!-- PROGRESS -->
+
+<div
+
+id="progress"
+
+class="progress">
+
+
+<div
+
+id="progressFill"
+
+class="progress-fill">
+
+</div>
+
+
+</div>
+
+
+<div
+class="time">
+
+
+<span
+id="currentTime">
+
+0:00
+
+</span>
+
+
+<span
+id="duration">
+
+0:00
+
+</span>
+
+
+</div>
+
+
+<!-- TOMBOL -->
+
+<div
+class="controls">
+
+
+<button
+
+id="previous"
+
+class="control-button">
+
+
+<i
+class="ph ph-skip-back-fill">
+
+</i>
+
+
+</button>
+
+
+<button
+
+id="play"
+
+class="play-button">
+
+
+<i
+class="ph ph-play-fill">
+
+</i>
+
+
+</button>
+
+
+<button
+
+id="next"
+
+class="control-button">
+
+
+<i
+class="ph ph-skip-forward-fill">
+
+</i>
+
+
+</button>
+
+
+</div>
+
+
+<!-- TOMBOL TEKS -->
+
+<div
+class="text-controls">
+
+
+<button
+id="previousText">
+
+← Previous
+
+</button>
+
+
+<button
+id="nextText">
+
+Next →
+
+</button>
+
+
+</div>
+
+
+<!-- VOLUME -->
+
+<div
+class="volume">
+
+
+<i
+class="ph ph-speaker-low">
+
+</i>
+
+
+<input
+
+id="volume"
+
+type="range"
+
+min="0"
+
+max="100"
+
+value="70">
+
+
+<i
+class="ph ph-speaker-high">
+
+</i>
+
+
+</div>
+
+
+</div>
+
+
+<!-- PLAYLIST -->
+
+<div
+class="playlist-area">
+
+
+<div
+class="playlist-title">
+
+PLAYLIST SAYA
+
+</div>
+
+
+<div
+
+id="songList"
+
+class="song-list">
+
+</div>
+
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* =====================================
+   DAFTAR LAGU
+===================================== */
+
+const playlist = [
+
+{
+        title: "Whataya Want From Me",
+        artist: "Adam Lambert",
+      src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/what_from_me.mp3",
+      cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+      },
+      {
+        title: "A Thousand Miles",
+        artist: "Vanessa Carlton",
+        src: "https://github.com/MrSukses89/my_music/raw/refs/heads/main/Vanessa%20Carlton%20-%20A%20Thousand%20Miles.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+
+      },
+      { title: "Hall of Fame", artist: "The Script ft. will.i.am", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/hall%20of%20fame.mp3", cover: "https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?w=500&q=80" },
+      { title: "Stronghold Sound 01", artist: "Stronghold", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/stronghold%20sound01.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Stronghold Sound 02", artist: "Stronghold", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/stronghold%20sound02.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Stronghold Sound 03", artist: "Stronghold", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/stronghold%20sound03.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Stronghold Sound 04", artist: "Stronghold", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/stronghold%20sound04.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "It's My Life", artist: "Bon Jovi", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/its_My_Life.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Green Day - 21 Guns", artist: "Green Day", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/Green%20Day_21%20Gun.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Iris", artist: "Goo Goo Dolls", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/Iris.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Don't Cry", artist: "Guns N' Roses", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/dont%20cry%20gnr.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Bad Liar", artist: "Imagine Dragons", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/bad%20liar.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "In The End", artist: "Linkin Park", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/in%20the%20end.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Young Dumb & Broke", artist: "Khalid", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/young_dumb.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Slow Dancing in the Burning Room", artist: "John Mayer", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/slow_dacing.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Can We Kiss Forever?", artist: "Kina ft. Adriana Proenza", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/can_we_kiss.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Poker Face", artist: "Lady Gaga", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/poker_face.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Rain On Me", artist: "Lady Gaga & Ariana Grande", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/rain_on_me.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Numb", artist: "Linkin Park", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/numb.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Perfect", artist: "Simple Plan", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/Perfect_simpel.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Surender", artist: "Natalie Taylor", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/surender.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Something Like This", artist: "The Chainsmokers & Coldplay", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/something%20like%20this.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Akatsuki No Ito", artist: "Wakaki", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/akatsuki%20no%20ito.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "What I've Done", artist: "Linkin Park", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/what%20ive%20done.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Where You Will Go", artist: "OneRepublic", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/where%20you%20will%20go.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Avenged Sevenfold - Hail To The King 01", artist: "Avenged Sevenfold", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/avenged%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Avenged Sevenfold - Hail To The King 02", artist: "Avenged Sevenfold", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/avenged%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Avenged Sevenfold - Hail To The King 03", artist: "Avenged Sevenfold", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/avenged%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Avenged Sevenfold - Hail To The King 04", artist: "Avenged Sevenfold", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/avenged%2004.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "barat - 01", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/barat%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "barat - 02", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/barat%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "barat - 03", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/barat%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "ghibli - 01", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/ghibli%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "ghibli - 02", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/gibli%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "river flow rock", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/River%20Flow%20Rock.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "rock - 01", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/rock%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "rock - 02", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/rock%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "rock - 03", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/rock%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Getcha", artist: "Sania Twain", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/sania_twain_getcha.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Clasic - 01", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/clasic%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Clasic - 02", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/clasic%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Clasic - 03", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/clasic%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Clasic - 04", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/clasic%2004.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Clasic - 05", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/clasic%2005.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Clasic - 06", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/clasic%2006.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Clasic - 07", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/clasic%2007.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Clasic - 08", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/clasic%2008.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "yiruma - 01", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/yiruma%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "yiruma - 02", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/yiruma%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Padi - 01", artist: "Padi", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/padi%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Padi - 02", artist: "Padi", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/padi%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Padi - 03", artist: "Padi", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/padi%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Viera - 01", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/viera%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Viera - 02", artist: "Various Artists", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/viera%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Didi Kempot - 01", artist: "Didi Kempot", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/didi%20kempot%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Didi Kempot - 02", artist: "Didi Kempot", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/didi%20kempot%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Didi Kempot - 03", artist: "Didi Kempot", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/didi%20kempot%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Daughtry", artist: "Daughtry", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/Daughtry.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Scorpion - 01", artist: "Scorpion", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/Sorpion%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Scorpion 02", artist: "Scorpion", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/Sorpion%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Scorpion - 03", artist: "Scorpion", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/Sorpion%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Andmesh - 01", artist: "Andmesh", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/andmesh%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Andmesh - 02", artist: "Andmesh", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/andmesh%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Ungu - 01", artist: "Ungu", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/ungu%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Ungu - 02", artist: "Ungu", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/ungu%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Ungu - 03", artist: "Ungu", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/ungu%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Noah - 01", artist: "Noah", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/noah%20001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Noah - 02", artist: "Noah", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/noah%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Noah - 03", artist: "Noah", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/noah%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Noah - 04", artist: "Noah", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/noah%2004.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Noah - 05", artist: "Noah", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/noah%2005.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Noah - 06", artist: "Noah", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/noah%2006.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Sheila On 7 - 01", artist: "Sheila On 7", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/sheila%20on%207.%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Sheila On 7 - 02", artist: "Sheila On 7", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/sheila%20on%207.%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Sheila On 7 - 03", artist: "Sheila On 7", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/sheila%20on%207.%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Sheila On 7 - 04", artist: "Sheila On 7", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/sheila%20on%207.%2004.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Naff - 01", artist: "Naff", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/naff%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Naff - 02", artist: "Naff", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/naff%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Naff - 03", artist: "Naff", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/naff%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Geisha - 01", artist: "Geisha", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/geisya%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Geisha - 02", artist: "Geisha", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/geisya%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Adele - 01", artist: "Adele", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/adele%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Adele - 02", artist: "Adele", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/adele%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Adele - 03", artist: "Adele", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/adele%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Ed Sheeran - 01", artist: "Ed Sheeran", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/ed%20sheeran%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Ed Sheeran - 02", artist: "Ed Sheeran", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/ed%20sheeran%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Ed Sheeran - 03", artist: "Ed Sheeran", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/ed%20sheeran%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Dewa 19 - 01", artist: "Dewa 19", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/dewa%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Dewa 19 - 02", artist: "Dewa 19", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/dewa%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Dewa 03", artist: "Dewa 19", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/dewa%2003.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Tiara Andini - 01", artist: "Tiara Andini", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/tiara%20andini%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Tiara Andini - 02", artist: "Tiara Andini", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/tiara%20andini%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Radja - 01", artist: "Radja", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/radja%2001.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      { title: "Radja - 02", artist: "Radja", src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/radja%2002.mp3", cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80" },
+      {
+        title: "Radja - 03",
+        artist: "Radja",
+        src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/radja%2003.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+      },
+      {
+        title: "Indo 2026 - 01",
+        artist: "Various Artists",
+        src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/indo%202026.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+      },
+
+{
+      title: "Indo 2026 - 02",
+        artist: "Various Artists",
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/indo%202026%2002.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+
+
+{
+        title: "Indo 2026 - 03",
+        artist: "Various Artists",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/indo%202026%2003.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Lagu Cafe - 01",
+        artist: "Various Artists",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/lagu%20cafe%2001.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+   },
+{
+        title: "Lagu Cafe - 02",
+        artist: "Various Artists",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/lagu%20cafe%2002.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Lagu Cafe - 03",
+        artist: "Various Artists",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/lagu%20cafe%2003.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Lagu Cafe - 04",
+        artist: "Various Artists",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/lagu%20cafe%2004.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Lagu Cafe - 05",
+        artist: "Various Artists",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/lagu%20cafe%2005.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Lagu Cafe - 06",
+        artist: "Various Artists",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/lagu%20cafe%2006.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Bon Jovi - 01",
+        artist: "Bon Jovi",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/bon%20jovi%2001.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Bon Jovi - 02",
+        artist: "Bon Jovi",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/bon%20jovi%2002.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Bon Jovi - 03",
+        artist: "Bon Jovi",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/bon%20jovi%2003.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Bon Jovi - 04",
+        artist: "Bon Jovi",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/bon%20jovi%2004.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Jamrud - 01",
+        artist: "Jamrud",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/jamrud%2001.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+   },
+{
+        title: "Jamrud - 02",
+        artist: "Jamrud",
+        // Link sudah diperbaiki ke format RAW yang benar
+            src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/jamrud%2002.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+
+        title: "Last Child - 01",
+        artist: "Last Child",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/last%20child%2001mp3.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+   },
+{
+        title: "Last Child - 02",
+        artist: "Last Child",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/last%20child%2002mp3.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Boomerang - 01",
+        artist: "Boomerang",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/boomerang%2001.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Boomerang - 02",
+        artist: "Boomerang",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/boomerang%2002.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Kangen Band - 01",
+        artist: "Kangen Band",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/kangen%20band%2001.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Kangen Band - 02",
+        artist: "Kangen Band",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/kangen%20band%2002.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+{
+        title: "Kangen Band - 03",
+        artist: "Kangen Band",
+        // Link sudah diperbaiki ke format RAW yang benar
+         src: "https://raw.githubusercontent.com/MrSukses89/my_music/main/kangen%20band%2003.mp3",
+        cover: "https://images.unsplash.com/photo-1506157786151-b8491531f063?w=500&q=80"
+    },
+
+];
+
+
+/* =====================================
+   VARIABEL
+===================================== */
+
+const audio =
+
+new Audio();
+
+
+const player =
+
+document.querySelector(
+
+".music-player"
+
+);
+
+
+const title =
+
+document.getElementById(
+
+"title"
+
+);
+
+
+const artist =
+
+document.getElementById(
+
+"artist"
+
+);
+
+
+const cover =
+
+document.getElementById(
+
+"cover"
+
+);
+
+
+const play =
+
+document.getElementById(
+
+"play"
+
+);
+
+
+const previous =
+
+document.getElementById(
+
+"previous"
+
+);
+
+
+const next =
+
+document.getElementById(
+
+"next"
+
+);
+
+
+const songList =
+
+document.getElementById(
+
+"songList"
+
+);
+
+
+const progress =
+
+document.getElementById(
+
+"progress"
+
+);
+
+
+const progressFill =
+
+document.getElementById(
+
+"progressFill"
+
+);
+
+
+const currentTime =
+
+document.getElementById(
+
+"currentTime"
+
+);
+
+
+const duration =
+
+document.getElementById(
+
+"duration"
+
+);
+
+
+const volume =
+
+document.getElementById(
+
+"volume"
+
+);
+
+
+let currentSong =
+
+0;
+
+
+/* =====================================
+   LOAD LAGU
+===================================== */
+
+function loadSong(
+
+index
+
+) {
+
+
+const song =
+
+playlist[index];
+
+
+audio.src =
+
+song.src;
+
+
+title.textContent =
+
+song.title;
+
+
+artist.textContent =
+
+song.artist;
+
+
+cover.src =
+
+song.cover;
+
+
+progressFill.style.width =
+
+"0%";
+
+
+currentTime.textContent =
+
+"0:00";
+
+
+duration.textContent =
+
+"0:00";
+
+
+renderPlaylist();
+
+
+}
+
+
+/* =====================================
+   PLAY
+===================================== */
+
+function playSong() {
+
+
+audio.play()
+
+.then(
+
+function() {
+
+
+player.classList.add(
+
+"playing"
+
+);
+
+
+play.innerHTML =
+
+'<i class="ph ph-pause-fill"></i>';
+
+
+}
+
+)
+
+.catch(
+
+function(error) {
+
+
+console.log(
+
+"Musik tidak dapat diputar:",
+
+error
+
+);
+
+
+}
+
+);
+
+
+}
+
+
+/* =====================================
+   PAUSE
+===================================== */
+
+function pauseSong() {
+
+
+audio.pause();
+
+
+player.classList.remove(
+
+"playing"
+
+);
+
+
+play.innerHTML =
+
+'<i class="ph ph-play-fill"></i>';
+
+
+}
+
+
+/* =====================================
+   TOMBOL PLAY
+===================================== */
+
+play.addEventListener(
+
+"click",
+
+function() {
+
+
+if (
+
+audio.paused
+
+) {
+
+
+playSong();
+
+
+}
+
+else {
+
+
+pauseSong();
+
+
+}
+
+
+}
+
+);
+
+
+/* =====================================
+   NEXT
+===================================== */
+
+function nextSong() {
+
+
+currentSong++;
+
+
+if (
+
+currentSong >=
+
+playlist.length
+
+) {
+
+
+currentSong =
+
+0;
+
+
+}
+
+
+loadSong(
+
+currentSong
+
+);
+
+
+playSong();
+
+
+}
+
+
+/* =====================================
+   PREVIOUS
+===================================== */
+
+function previousSong() {
+
+
+currentSong--;
+
+
+if (
+
+currentSong <
+
+0
+
+) {
+
+
+currentSong =
+
+playlist.length - 1;
+
+
+}
+
+
+loadSong(
+
+currentSong
+
+);
+
+
+playSong();
+
+
+}
+
+
+/* =====================================
+   EVENT BUTTON
+===================================== */
+
+next.onclick =
+
+nextSong;
+
+
+previous.onclick =
+
+previousSong;
+
+
+document
+
+.getElementById(
+
+"nextText"
+
+)
+
+.onclick =
+
+nextSong;
+
+
+document
+
+.getElementById(
+
+"previousText"
+
+)
+
+.onclick =
+
+previousSong;
+
+
+/* =====================================
+   BUAT PLAYLIST
+===================================== */
+
+function renderPlaylist() {
+
+
+songList.innerHTML =
+
+"";
+
+
+playlist.forEach(
+
+function(
+
+song,
+
+index
+
+) {
+
+
+const item =
+
+document.createElement(
+
+"div"
+
+);
+
+
+item.className =
+
+"song-item";
+
+
+if (
+
+index ===
+
+currentSong
+
+) {
+
+
+item.classList.add(
+
+"active"
+
+);
+
+
+}
+
+
+item.innerHTML =
+
+`
+
+<div>
+
+<div
+
+class="song-item-title">
+
+${song.title}
+
+</div>
+
+<div
+
+class="song-item-artist">
+
+${song.artist}
+
+</div>
+
+</div>
+
+<i
+
+class="ph ph-music-note">
+
+</i>
+
+`;
+
+
+item.onclick =
+
+function() {
+
+
+currentSong =
+
+index;
+
+
+loadSong(
+
+currentSong
+
+);
+
+
+playSong();
+
+
+};
+
+
+songList.appendChild(
+
+item
+
+);
+
+
+}
+
+);
+
+
+}
+
+
+/* =====================================
+   PROGRESS
+===================================== */
+
+audio.addEventListener(
+
+"timeupdate",
+
+function() {
+
+
+if (
+
+audio.duration
+
+) {
+
+
+const percent =
+
+(
+
+audio.currentTime /
+
+audio.duration
+
+)
+
+*
+
+100;
+
+
+progressFill.style.width =
+
+percent +
+
+"%";
+
+
+currentTime.textContent =
+
+formatTime(
+
+audio.currentTime
+
+);
+
+
+duration.textContent =
+
+formatTime(
+
+audio.duration
+
+);
+
+
+}
+
+
+}
+
+);
+
+
+/* =====================================
+   KLIK PROGRESS
+===================================== */
+
+progress.addEventListener(
+
+"click",
+
+function(
+
+event
+
+) {
+
+
+if (
+
+!audio.duration
+
+) {
+
+
+return;
+
+
+}
+
+
+const rect =
+
+progress.getBoundingClientRect();
+
+
+const position =
+
+(
+
+event.clientX -
+
+rect.left
+
+)
+
+/
+
+rect.width;
+
+
+audio.currentTime =
+
+position *
+
+audio.duration;
+
+
+}
+
+);
+
+
+/* =====================================
+   FORMAT WAKTU
+===================================== */
+
+function formatTime(
+
+seconds
+
+) {
+
+
+const minutes =
+
+Math.floor(
+
+seconds /
+
+60
+
+);
+
+
+const second =
+
+Math.floor(
+
+seconds %
+
+60
+
+);
+
+
+return
+
+minutes +
+
+":" +
+
+(
+
+second <
+
+10
+
+?
+
+"0"
+
+:
+
+""
+
+)
+
++
+
+second;
+
+
+}
+
+
+/* =====================================
+   VOLUME
+===================================== */
+
+volume.oninput =
+
+function() {
+
+
+audio.volume =
+
+volume.value /
+
+100;
+
+
+};
+
+
+/* =====================================
+   LAGU SELESAI
+===================================== */
+
+audio.onended =
+
+nextSong;
+
+
+/* =====================================
+   MULAI
+===================================== */
+
+audio.volume =
+
+0.7;
+
+
+loadSong(
+
+currentSong
+
+);
+
+
+</script>
+
+
+</body>
+
+</html>
+```
